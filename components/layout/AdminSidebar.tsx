@@ -1,10 +1,22 @@
+"use client";
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 export const AdminSidebar: React.FC = () => {
+  const pathname = usePathname();
+
+  const navItems = [
+    { href: '/admin/dashboard', label: 'Dashboard', icon: 'dashboard' },
+    { href: '/admin/operations', label: 'Operations', icon: 'analytics' },
+    { href: '/admin/inventory', label: 'Inventory', icon: 'inventory_2' },
+    { href: '/admin/users', label: 'User Management', icon: 'group' },
+    { href: '#', label: 'System Settings', icon: 'settings' },
+  ];
+
   return (
-    <aside className="fixed left-0 top-0 w-[260px] h-screen border-r border-slate-200 bg-white flex flex-col z-50">
+    <aside className="w-[260px] h-screen border-r border-slate-200 bg-white flex flex-col">
       <div className="px-6 py-6 border-b border-slate-200 flex items-center gap-3">
         <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 border border-slate-200">
           <Image 
@@ -20,26 +32,28 @@ export const AdminSidebar: React.FC = () => {
         </div>
       </div>
       <nav className="flex-1 overflow-y-auto py-4 flex flex-col">
-        <Link className="border-l-[3px] border-blue-900 bg-slate-50 text-blue-900 font-bold px-4 py-3 flex items-center gap-3 transition-colors" href="/admin/dashboard">
-          <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>dashboard</span>
-          <span className="text-sm">Dashboard</span>
-        </Link>
-        <Link className="text-slate-600 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 transition-colors" href="/admin/operations">
-          <span className="material-symbols-outlined">analytics</span>
-          <span className="text-sm font-medium">Operations</span>
-        </Link>
-        <Link className="text-slate-600 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 transition-colors" href="/admin/inventory">
-          <span className="material-symbols-outlined">inventory_2</span>
-          <span className="text-sm font-medium">Inventory</span>
-        </Link>
-        <Link className="text-slate-600 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 transition-colors" href="/admin/users">
-          <span className="material-symbols-outlined">group</span>
-          <span className="text-sm font-medium">User Management</span>
-        </Link>
-        <Link className="text-slate-600 px-4 py-3 flex items-center gap-3 hover:bg-slate-50 transition-colors" href="#">
-          <span className="material-symbols-outlined">settings</span>
-          <span className="text-sm font-medium">System Settings</span>
-        </Link>
+        {navItems.map((item) => {
+          const isActive = pathname === item.href;
+          return (
+            <Link 
+              key={item.href}
+              className={`${
+                isActive 
+                  ? "border-l-[3px] border-blue-900 bg-slate-50 text-blue-900 font-bold" 
+                  : "text-slate-600 hover:bg-slate-50"
+              } px-4 py-3 flex items-center gap-3 transition-colors`} 
+              href={item.href}
+            >
+              <span 
+                className="material-symbols-outlined" 
+                style={{ fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0" }}
+              >
+                {item.icon}
+              </span>
+              <span className={`text-sm ${isActive ? "" : "font-medium"}`}>{item.label}</span>
+            </Link>
+          );
+        })}
       </nav>
       <div className="p-4 border-t border-slate-200 text-center">
         <span className="text-xs text-slate-400">v2.4.0</span>

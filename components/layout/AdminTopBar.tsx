@@ -1,12 +1,19 @@
 import React from 'react';
 import Image from 'next/image';
 
-export const AdminTopBar: React.FC = () => {
+interface AdminTopBarProps {
+  onMenuClick?: () => void;
+}
+
+export const AdminTopBar: React.FC<AdminTopBarProps> = ({ onMenuClick }) => {
   return (
     <header className="sticky top-0 w-full border-b border-slate-200 bg-white/80 backdrop-blur-md shadow-none flex justify-between items-center h-16 px-6 z-40 transition-all duration-200">
       <div className="flex items-center gap-4">
-        <button className="text-slate-500 hover:text-blue-700 transition-colors focus:outline-none flex items-center justify-center">
-          <span className="material-symbols-outlined">menu_open</span>
+        <button 
+          onClick={onMenuClick}
+          className="text-slate-500 hover:text-blue-700 transition-colors focus:outline-none flex items-center justify-center md:hidden"
+        >
+          <span className="material-symbols-outlined">menu</span>
         </button>
         <h1 className="text-lg font-extrabold text-blue-900">
           Operations Center

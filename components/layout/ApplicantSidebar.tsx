@@ -1,8 +1,20 @@
+"use client";
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 export const ApplicantSidebar: React.FC = () => {
+  const pathname = usePathname();
+
+  const navItems = [
+    { href: '/applicant/dashboard', label: 'Dashboard', icon: 'dashboard' },
+    { href: '#', label: 'Biodata', icon: 'person' },
+    { href: '/applicant/apply', label: 'Pendaftaran', icon: 'edit_note' },
+    { href: '/applicant/documents', label: 'Dokumen', icon: 'cloud_upload' },
+    { href: '/applicant/resume', label: 'Resume', icon: 'description' },
+  ];
+
   return (
     <aside className="bg-[#f3f3f3] text-[#002147] h-full w-72 border-r border-outline-variant fixed left-0 top-0 z-40 hidden md:flex flex-col">
       <div className="p-6 border-b border-outline-variant flex flex-col items-start gap-4">
@@ -23,26 +35,28 @@ export const ApplicantSidebar: React.FC = () => {
         <p className="text-gray-600 text-xs">NIP: 198502...</p>
       </div>
       <nav className="flex-1 py-4 flex flex-col gap-1 overflow-y-auto">
-        <Link className="bg-[#fed65b] text-[#002147] font-bold rounded-lg px-4 py-3 mx-2 my-1 flex items-center gap-4" href="/applicant/dashboard">
-          <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>dashboard</span>
-          Dashboard
-        </Link>
-        <Link className="text-gray-700 px-4 py-3 mx-2 my-1 flex items-center gap-4 hover:bg-gray-200 rounded-lg transition-all" href="#">
-          <span className="material-symbols-outlined">person</span>
-          Biodata
-        </Link>
-        <Link className="text-gray-700 px-4 py-3 mx-2 my-1 flex items-center gap-4 hover:bg-gray-200 rounded-lg transition-all" href="/applicant/apply">
-          <span className="material-symbols-outlined">edit_note</span>
-          Pendaftaran
-        </Link>
-        <Link className="text-gray-700 px-4 py-3 mx-2 my-1 flex items-center gap-4 hover:bg-gray-200 rounded-lg transition-all" href="/applicant/documents">
-          <span className="material-symbols-outlined">cloud_upload</span>
-          Dokumen
-        </Link>
-        <Link className="text-gray-700 px-4 py-3 mx-2 my-1 flex items-center gap-4 hover:bg-gray-200 rounded-lg transition-all" href="/applicant/resume">
-          <span className="material-symbols-outlined">description</span>
-          Resume
-        </Link>
+        {navItems.map((item) => {
+          const isActive = pathname === item.href;
+          return (
+            <Link 
+              key={item.href}
+              className={`${
+                isActive 
+                  ? "bg-[#fed65b] text-[#002147] font-bold" 
+                  : "text-gray-700 hover:bg-gray-200"
+              } rounded-lg px-4 py-3 mx-2 my-1 flex items-center gap-4 transition-all`} 
+              href={item.href}
+            >
+              <span 
+                className="material-symbols-outlined" 
+                style={{ fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0" }}
+              >
+                {item.icon}
+              </span>
+              {item.label}
+            </Link>
+          );
+        })}
       </nav>
     </aside>
   );
