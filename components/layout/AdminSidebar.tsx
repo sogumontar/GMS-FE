@@ -12,6 +12,7 @@ export const AdminSidebar: React.FC = () => {
     { href: '/admin/operations', label: 'Operations', icon: 'analytics' },
     { href: '/admin/inventory', label: 'Inventory', icon: 'inventory_2' },
     { href: '/admin/users', label: 'User Management', icon: 'group' },
+    { href: '/admin/tasks', label: 'Tasks', icon: 'assignment_ind' },
     { href: '#', label: 'System Settings', icon: 'settings' },
   ];
 
@@ -33,7 +34,7 @@ export const AdminSidebar: React.FC = () => {
       </div>
       <nav className="flex-1 overflow-y-auto py-4 flex flex-col">
         {navItems.map((item) => {
-          const isActive = pathname === item.href;
+          const isActive = item.href !== '#' && (pathname === item.href || pathname.startsWith(item.href + '/'));
           return (
             <Link 
               key={item.href}
