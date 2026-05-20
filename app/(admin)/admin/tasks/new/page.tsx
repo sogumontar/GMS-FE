@@ -16,15 +16,15 @@ export default function NewTaskPage() {
   };
 
   return (
-    <div className="p-8 max-w-3xl mx-auto w-full space-y-8">
-      <div>
+    <div className="p-8 max-w-4xl mx-auto w-full space-y-8 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm">
+      <div className="p-6 border-b border-outline-variant bg-surface-bright rounded-t-xl text-left">
         <h2 className="text-3xl font-bold text-primary">Create New Task</h2>
         <p className="text-on-surface-variant mt-2">
           Initiate a new recruitment workflow task and assign it to a team member.
         </p>
       </div>
 
-      <div className="bg-surface border border-outline-variant p-8 rounded-xl shadow-sm">
+      <div className="p-8 bg-white rounded-b-xl">
         <TaskForm 
           onSubmit={handleSubmit} 
           onCancel={() => router.push('/admin/tasks')}
@@ -32,4 +32,5 @@ export default function NewTaskPage() {
       </div>
     </div>
   );
+
 }

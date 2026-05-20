@@ -4,31 +4,53 @@ interface Column<T> {
   header: string;
   accessor: keyof T;
   render?: (value: any, item: T) => React.ReactNode;
+  align?: 'left' | 'center' | 'right';
 }
 
 interface DataTableProps<T> {
   columns: Column<T>[];
   data: T[];
+  className?: string;
+  onRowClick?: (item: T) => void;
 }
 
-export function DataTable<T extends { id: string }>({ columns, data }: DataTableProps<T>) {
+export function DataTable<T extends { id: string }>({ 
+  columns, 
+  data, 
+  className = '',
+  onRowClick
+}: DataTableProps<T>) {
   return (
-    <div className="w-full overflow-x-auto border border-gray-200 rounded-xl bg-white shadow-sm">
-      <table className="w-full text-left border-collapse">
-        <thead className="bg-gray-50 border-b border-gray-200">
-          <tr>
+    <div className={`w-full overflow-x-auto ${className}`}>
+      <table className="w-full text-left border-collapse min-w-[800px]">
+        <thead>
+          <tr className="bg-surface-bright border-b border-outline-variant">
             {columns.map((col, i) => (
-              <th key={i} className="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-wider">
+              <th 
+                key={i} 
+                className={`py-4 px-6 text-xs font-bold text-on-surface-variant uppercase tracking-wider ${
+                  col.align === 'right' ? 'text-right' : col.align === 'center' ? 'text-center' : 'text-left'
+                }`}
+              >
                 {col.header}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200">
+        <tbody className="divide-y divide-outline-variant font-body-md text-sm text-on-background">
           {data.map((item) => (
-            <tr key={item.id} className="hover:bg-gray-50 transition-colors">
+            <tr 
+              key={item.id} 
+              onClick={() => onRowClick?.(item)}
+              className={`hover:bg-surface-container-low transition-colors group ${onRowClick ? 'cursor-pointer' : ''}`}
+            >
               {columns.map((col, i) => (
-                <td key={i} className="px-6 py-4 text-sm text-gray-700">
+                <td 
+                  key={i} 
+                  className={`py-3 px-6 text-on-surface ${
+                    col.align === 'right' ? 'text-right' : col.align === 'center' ? 'text-center' : 'text-left'
+                  }`}
+                >
                   {col.render ? col.render(item[col.accessor], item) : (item[col.accessor] as React.ReactNode)}
                 </td>
               ))}

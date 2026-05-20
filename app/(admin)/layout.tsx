@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { AdminSidebar } from "@/components/layout/AdminSidebar";
 import { AdminTopBar } from "@/components/layout/AdminTopBar";
+import '../globals.css'; // Import global styles here
 
 export default function AdminLayout({
   children,
