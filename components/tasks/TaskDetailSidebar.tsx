@@ -17,12 +17,14 @@ export const TaskDetailSidebar: React.FC<TaskDetailSidebarProps> = ({ task, assi
         {assignee ? (
           <div className="flex items-center gap-4">
             <div className="relative w-12 h-12 rounded-full overflow-hidden border border-outline-variant">
-              <Image 
-                src={assignee.avatarUrl} 
-                alt={assignee.name} 
-                fill 
-                className="object-cover"
-              />
+              {assignee.avatarUrl && ( // Only render Image if avatarUrl exists
+                              <Image
+                                src={assignee.avatarUrl}
+                                alt={assignee.name}
+                                fill
+                                className="object-cover"
+                              />
+                            )}
             </div>
             <div>
               <p className="font-bold text-primary">{assignee.name}</p>

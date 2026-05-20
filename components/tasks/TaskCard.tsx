@@ -35,12 +35,14 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, assignee }) => {
         {assignee && (
           <div className="flex items-center gap-2">
             <div className="relative w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
-              <Image 
-                src={assignee.avatarUrl} 
-                alt={assignee.name} 
-                fill 
-                className="object-cover"
-              />
+              {assignee.avatarUrl && ( // Only render Image if avatarUrl exists
+                <Image
+                  src={assignee.avatarUrl}
+                  alt={assignee.name}
+                  fill
+                  className="object-cover"
+                />
+              )}
             </div>
             <span className="text-sm font-semibold text-on-surface">{assignee.name}</span>
           </div>
