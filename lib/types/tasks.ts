@@ -21,6 +21,7 @@ export interface Task {
   dueDate: string;
   createdDate: string;
   category: string;
+  tags: string[]; // Added tags property
 }
 
 export interface Attachment {

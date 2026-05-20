@@ -1,3 +1,6 @@
+import { Product, InventoryMetric } from './types/inventory'; // Added Product and InventoryMetric import
+import { Task } from './types/tasks'; // Assuming Task is also defined in types/tasks
+
 export const USER_DATA = [
   { id: '1', name: 'Ahmad Sudrajat', email: 'ahmad@example.com', role: 'Admin', status: 'Active' },
   { id: '2', name: 'Siti Aminah', email: 'siti@example.com', role: 'Viewer', status: 'Active' },
@@ -15,7 +18,6 @@ export const DASHBOARD_METRICS = [
   { label: 'Formasi Aktif', value: '12.500', trend: '+5.2%', icon: 'business_center' },
   { label: 'Instansi Terdaftar', value: '85', trend: '0%', icon: 'domain' },
 ];
-import type { Product, InventoryMetric } from "../types/inventory";
 
 export const INVENTORY_DATA: Product[] = [
   {
@@ -121,7 +123,7 @@ export const INITIAL_INVENTORY_METRICS: InventoryMetric = {
 // Mock data for Task Management
 // Ensure sufficient data for task pages if styling fixes are needed.
 // For example, include tasks with different statuses and assignees.
-export const TASK_DATA = [
+export const TASK_DATA: Task[] = [ // Added Task type annotation
   {
     id: "task-001",
     title: "Onboard New Applicant",
@@ -130,6 +132,8 @@ export const TASK_DATA = [
     priority: "HIGH",
     dueDate: "2024-07-20T10:00:00Z",
     assigneeId: "assignee-001",
+    createdDate: "2024-05-20T10:00:00Z",
+    category: "Recruitment",
     tags: ["onboarding", "HR"]
   },
   {
@@ -140,6 +144,8 @@ export const TASK_DATA = [
     priority: "MEDIUM",
     dueDate: "2024-07-18T14:30:00Z",
     assigneeId: "assignee-002",
+    createdDate: "2024-05-20T10:00:00Z",
+    category: "Recruitment",
     tags: ["recruitment", "CV"]
   },
   {
@@ -150,6 +156,8 @@ export const TASK_DATA = [
     priority: "HIGH",
     dueDate: "2024-07-15T17:00:00Z",
     assigneeId: "assignee-001",
+    createdDate: "2024-05-20T10:00:00Z",
+    category: "Recruitment",
     tags: ["reporting", "finance"]
   },
   {
@@ -160,16 +168,20 @@ export const TASK_DATA = [
     priority: "LOW",
     dueDate: "2024-07-19T09:00:00Z",
     assigneeId: "assignee-003",
+    createdDate: "2024-05-20T10:00:00Z",
+    category: "Recruitment",
     tags: ["meeting", "scheduling"]
   },
   {
     id: "task-005",
     title: "Update Inventory Policy",
     description: "Revise the company inventory management policy for the upcoming year.",
-    status: "NEW",
+    status: "OPEN",
     priority: "MEDIUM",
     dueDate: "2024-07-25T11:00:00Z",
     assigneeId: "assignee-002",
+    createdDate: "2024-05-20T10:00:00Z",
+    category: "Recruitment",
     tags: ["policy", "inventory"]
   }
 ];
@@ -178,16 +190,19 @@ export const ASSIGNEE_DATA = [
   {
     id: "assignee-001",
     name: "Alice Johnson",
-    role: "HR Manager"
+    role: "HR Manager",
+    department: "HRD"
   },
   {
     id: "assignee-002",
     name: "Bob Williams",
-    role: "Recruiter"
+    role: "Recruiter",
+    department: "HRD"
   },
   {
     id: "assignee-003",
     name: "Charlie Brown",
-    role: "Team Lead"
+    role: "Team Lead",
+    department: "Technology"
   }
 ];

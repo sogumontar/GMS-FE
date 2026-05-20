@@ -5,7 +5,7 @@ export interface Product {
   category: string;
   price: number;
   stockLevel: number;
-  status: 'In Stock' | 'Low Stock' | 'Out of Stock';
+  status: 'In Stock' | 'Low Stock' | 'Out of Stock' | string; // Made status more flexible
   imageUrl?: string;
   description?: string;
 }
